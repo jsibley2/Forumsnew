@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -53,20 +54,32 @@ const CommunityCardGrid: React.FC<CommunityCardGridProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {communities.map((community) => (
-          <Card key={community.id} className="overflow-hidden flex flex-col">
+          <Card
+            key={community.id}
+            className="overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-200"
+          >
             {community.coverImage && (
-              <div className="h-32 w-full overflow-hidden">
-                <img
-                  src={community.coverImage}
-                  alt={`${community.name} cover`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <Link to={`/community/${community.id}`}>
+                <div className="h-32 w-full overflow-hidden cursor-pointer">
+                  <img
+                    src={community.coverImage}
+                    alt={`${community.name} cover`}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                  />
+                </div>
+              </Link>
             )}
 
             <CardHeader>
               <div className="flex justify-between items-start">
-                <CardTitle>{community.name}</CardTitle>
+                <Link
+                  to={`/community/${community.id}`}
+                  className="hover:text-[#3498db] transition-colors"
+                >
+                  <CardTitle className="cursor-pointer">
+                    {community.name}
+                  </CardTitle>
+                </Link>
                 <Badge
                   variant={community.type === "free" ? "secondary" : "default"}
                   className={community.type === "paid" ? "bg-[#e74c3c]" : ""}
